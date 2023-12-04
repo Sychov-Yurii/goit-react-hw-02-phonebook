@@ -25,10 +25,8 @@ class ContactForm extends Component {
       return;
     }
 
-    // Якщо ім'я унікальне, додаємо новий контакт
     onAddContact({ name, number });
 
-    // Очистіть поля після додавання
     this.setState({ name: '', number: '' });
   };
 
