@@ -12,11 +12,22 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
+    number: '',
   };
 
   handleAddContact = newContact => {
+    const { contacts, number } = this.state;
+    const isNameExist = contacts.some(
+      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+    );
+
+    if (isNameExist) {
+      alert(`${newContact.name} is already in contacts!`);
+      return;
+    }
+
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
+      contacts: [...prevState.contacts, { ...newContact, number }],
     }));
   };
 
@@ -44,7 +55,10 @@ class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
-        <ContactForm onAddContact={this.handleAddContact} />
+        <ContactForm
+          contacts={this.state.contacts}
+          onAddContact={this.handleAddContact}
+        />
 
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.handleFilterChange} />
